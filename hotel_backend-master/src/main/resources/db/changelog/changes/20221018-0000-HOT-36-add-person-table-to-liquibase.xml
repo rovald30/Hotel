@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+		http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd
+		http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+		http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-latest.xsd">
+
+    <changeSet id="HOT-36-add-person-table-to-liquibase_1" author="Norman">
+        <sql dbms="postgresql"
+             splitStatements="true">
+            CREATE TABLE person(
+            id BIGSERIAL PRIMARY KEY NOT NULL,
+            identity_code VARCHAR(255) NOT NULL UNIQUE,
+            first_name VARCHAR(255) NOT NULL,
+            last_name VARCHAR(255) NOT NULL,
+            date_of_birth DATE NOT NULL,
+            time_of_registration TIMESTAMP DEFAULT LOCALTIMESTAMP(0) NOT NULL,
+            CONSTRAINT first_name_not_empty CHECK (REGEXP_REPLACE(first_name, '\s+$', '') &lt;&gt; ''),
+            CONSTRAINT last_name_not_empty CHECK (REGEXP_REPLACE(last_name, '\s+$', '') &lt;&gt; ''),
+            CONSTRAINT date_of_birth_less_than_registration CHECK (date_of_birth &lt; DATE(time_of_registration))
+            );
+        </sql>
+    </changeSet>
+</databaseChangeLog>

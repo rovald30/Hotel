@@ -1,0 +1,14 @@
+version: '3.7'
+services:
+  frontend:
+    container_name: frontend-hotel
+    restart: always
+    build:
+      context: ./
+      dockerfile: Dockerfile
+      args:
+        env: '<..>' # here should be env (local, prod, dev)
+    volumes:
+      - '.:/app'
+    ports:
+      - "8080:80"

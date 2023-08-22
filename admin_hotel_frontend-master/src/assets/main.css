@@ -1,0 +1,26 @@
+@import './base.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+#app {
+  font-weight: normal;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+@media (min-width: 1024px) {
+  body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #app {
+  }
+}
